@@ -1,5 +1,10 @@
 const express = require("express");
-require("express-async-errors")
+require("express-async-errors");
+const helment = require("helmet");
+const cors = require("cors");
+const xss = require("xss-clean");
+const rateLimit = require("express-rate-limit");
+
 const app= express();
 const dotenv = require("dotenv");
 const connectToDB = require("./db");
@@ -10,7 +15,13 @@ const jobRoute = require("./routes/jobRoute");
 const userRoute = require("./routes/userRoute");
 
 app.use(express.json())
-
+app.use(helment());
+app.use(cors());
+app.use(xss());
+app.use(rateLimit({
+  windowMs:15*60*1000,
+  max:100
+}));
 app.use("/api/v1/jobs",jobRoute);
 app.use("/api/v1/users",userRoute);
 
