@@ -6,8 +6,13 @@ const connectToDB = require("./db");
 const errorHandlerMiddleware = require("./middleware/globalError");
 dotenv.config();
 
+const jobRoute = require("./routes/jobRoute");
+const userRoute = require("./routes/userRoute");
+
 app.use(express.json())
 
+app.use("/api/v1/jobs",jobRoute);
+app.use("/api/v1/users",userRoute);
 
 app.use((req,res,next)=>{
   res.status(404).json({
