@@ -19,6 +19,16 @@ const jobSchema = new Schema({
     type:Schema.Types.ObjectId,
     ref:'User',
     required:true
+  },
+  jobType:{
+    type:String,
+    enum:['full-time','part-time','remote','internship'],
+    default:'full-time'
+  },
+  jobLocation:{
+    type:String,
+    default:'my location',
+    required:true
   }
 },{timestamps:true
 })

@@ -56,8 +56,24 @@ const protect = async (req,res)=>{
   next()
 }
 
-
+const updateUser = async (req,res)=>{
+  const {id:userId} = req.params;
+  const {name,email,lastName,location} = req.body;
+  if(!name || !email || !lastName || !location){
+    throw new BadRequest("Please fill in all fields")
+  }
+  const user = await User.findOneAndUpdate({_id:userId},{name,email,lastName,location},{new:true,runValidators:true});
+  if(!user){
+    throw new BadRequest("User not found")
+  }
+  res.status(StatusCodes.OK).json({
+    message:'User updated successfully',
+    user
+  })
+}
 module.exports = {
   login ,
-  register
+  register,
+  protect,
+  updateUser
 }

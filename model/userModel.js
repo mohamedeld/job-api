@@ -8,6 +8,11 @@ const userSchema = new Schema({
     minLength: 3,
     maxLength: 50
   },
+  lastName:{
+    type:String,
+    required:[true,"last name is required"],
+    default:'lastName'
+  },
   email: {
     type: String,
     required: [true, "name is required"],
@@ -21,6 +26,12 @@ const userSchema = new Schema({
     type: String,
     required: [true, "Please enter your password"],
     minLength: 6
+  },
+  location:{
+    type:String,
+    required:[true,"Please enter your location"],
+    trim:true,
+    default:'my location'
   }
 })
 
